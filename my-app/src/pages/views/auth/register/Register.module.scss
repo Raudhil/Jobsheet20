@@ -1,0 +1,223 @@
+// register.module.scss
+
+// Gunakan variabel agar ganti warna gampang
+$primary-color: #3b82f6; // Biru modern
+$background-dark: #0f172a; // Slate-900 (Gelap)
+$background-light: #f1f5f9; // Slate-100 (Terang)
+$text-dark: #1e293b; // Slate-800
+$border-color: #e2e8f0; // Slate-200
+
+.register {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // Gradient latar belakang yang lebih dalam dan modern
+  background: radial-gradient(circle at center, #010103 0%, $background-dark 100%);
+  padding: 20px;
+  font-family: 'Inter', -apple-system, sans-serif; // Tipografi bersih
+
+  // Judul Halaman
+  &__title {
+    width: 100%;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 30px;
+    letter-spacing: -0.02em;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  }
+
+  &__error {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 0 16px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(248, 113, 113, 0.12);
+    border: 1px solid rgba(248, 113, 113, 0.2);
+    color: #fecaca;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  // Kontainer Form (Kartu Putih)
+  &__form {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 28px; // Sudut lebih halus
+    // Efek bayangan berlapis agar terlihat "premium" dan mengambang
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05); // Border super tipis
+    overflow: hidden;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px; // Jarak antar item form diperbesar agar tidak sesak
+    }
+
+    // Per Item (Satu Label + Satu Input)
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    // Label Input (Teks Kecil di Atas Kotak)
+    &__label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #334155; // Warna abu-abu gelap agar tidak terlalu kontras tapi terbaca
+      margin-left: 4px;
+      transition: color 0.2s ease;
+    }
+
+    // Kotak Input Teks - BAGIAN UTAMA YANG BERMASALAH TADI
+    &__input {
+      // RESET TOTAL agar tidak ditabrak gaya global
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      
+      width: 100%;
+      height: 52px; // Input lebih tinggi, memberikan kesan lapang
+      padding: 0 18px;
+      border-radius: 14px; // Sudut input lebih melengkung
+      border: 2px solid $border-color; // Border default abu-abu terang
+      background: $background-light; // Background input default (putih keabu-abuan)
+      color: $text-dark; // Warna teks input (gelap)
+      font-size: 15px;
+      font-weight: 400;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      // Gaya saat placeholder
+      &::placeholder {
+        color: #94a3b8; // Abu-abu muda
+        opacity: 0.8;
+      }
+
+      // Gaya saat input diklik/difokus
+      &:focus {
+        outline: none; // Hapus outline biru default browser
+        background: #ffffff; // Background jadi putih bersih
+        border-color: $primary-color; // Border jadi biru
+        // Efek bayangan halus saat fokus
+        box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.15);
+        transform: translateY(-1px); // Sedikit bergerak ke atas
+      }
+    }
+
+    // Tombol Register
+    &__button {
+      // RESET TOTAL
+      appearance: none;
+      
+      width: 100%;
+      height: 52px;
+      border-radius: 14px;
+      border: none;
+      background: $primary-color; // Warna biru
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 12px;
+      // Shadow tombol
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+
+      // Hover Effect
+      &:hover {
+        background: darken($primary-color, 8%); // Biru lebih gelap saat hover
+        box-shadow: 0 10px 24px rgba(59, 130, 246, 0.4);
+        transform: translateY(-2px);
+      }
+
+      // Active Effect (Saat ditekan)
+      &:active {
+        transform: translateY(1px);
+        box-shadow: 0 4px 10px rgba(59, 130, 246, 0.2);
+      }
+    }
+
+    // Teks di Bawah Form ("Sudah punya akun?")
+    &__text {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 14px;
+      color: #64748b; // Muted text
+      line-height: 1.5;
+
+      a {
+        color: $primary-color;
+        font-weight: 700;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.2s;
+
+        // Efek garis bawah saat hover (bukan default browser)
+        &:after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -2px;
+          left: 0;
+          background-color: $primary-color;
+          transition: width 0.3s ease;
+        }
+
+        &:hover {
+          color: darken($primary-color, 10%);
+          &:after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  // Animasi masuk (Fade In + Slide Up) saat halaman load
+  @keyframes formEntry {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  &__form {
+    animation: formEntry 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+
+  // Tampilan Mobile (Lebih kecil)
+  @media (max-width: 480px) {
+    padding: 16px;
+    
+    &__form {
+      padding: 30px 20px;
+      border-radius: 20px;
+    }
+
+    &__title {
+      font-size: 28px;
+    }
+    
+    &__input, &__button {
+      height: 48px; // Sedikit lebih pendek di mobile
+    }
+  }
+}
