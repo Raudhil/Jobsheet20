@@ -1,10 +1,6 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import type { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import { ProductType } from "../types/Product.type";
-import {
-  retrieveDataByID,
-  retrieveProducts,
-} from "../utils/db/servicefirebase";
 
 // Dynamic import dengan loading fallback
 const DetailProduk = dynamic(() => import("../views/DetailProduct"), {
@@ -22,31 +18,29 @@ const HalamanProduk = ({ product }: { product: ProductType }) => {
 
 export default HalamanProduk;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const products = (await retrieveProducts("products")) as ProductType[];
-
-  const paths = products
-    .filter((product) => typeof product.id === "string" && product.id.length > 0)
-    .map((product) => ({
-      params: { produk: product.id },
-    }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps<{ product: ProductType }, { produk: string }> = async ({ params }) => {
-  if (!params) {
+export const getServerSideProps: GetServerSideProps<
+  { product: ProductType },
+  { produk: string }
+> = async ({ params }) => {
+  if (!params?.produk) {
     return {
       notFound: true,
     };
   }
 
-  const product = (await retrieveDataByID("products", params.produk)) as ProductType | null;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/produk/${params.produk}`
+  );
 
-  if (!product) {
+  if (!res.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const response: { data: ProductType | null } = await res.json();
+
+  if (!response.data) {
     return {
       notFound: true,
     };
@@ -54,7 +48,7 @@ export const getStaticProps: GetStaticProps<{ product: ProductType }, { produk: 
 
   return {
     props: {
-      product,
+      product: response.data,
     },
   };
 };

@@ -1,6 +1,5 @@
 import DetailProduk from "../../views/DetailProduct";
 import { ProductType } from "../../types/Product.type";
-import { retrieveDataByID } from "../../utils/db/servicefirebase";
 
 const HalamanProdukServer = ({ product }: { product: ProductType }) => {
   return (
@@ -13,9 +12,19 @@ const HalamanProdukServer = ({ product }: { product: ProductType }) => {
 export default HalamanProdukServer;
 
 export async function getServerSideProps({ params }: { params: { produk: string } }) {
-  const product = await retrieveDataByID("products", params.produk);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/produk/${params?.produk}`
+  );
 
-  if (!product) {
+  if (!res.ok) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const response: { data: ProductType | null } = await res.json();
+
+  if (!response.data) {
     return {
       notFound: true,
     };
@@ -23,7 +32,7 @@ export async function getServerSideProps({ params }: { params: { produk: string 
 
   return {
     props: {
-      product,
+      product: response.data,
     },
   };
 }
