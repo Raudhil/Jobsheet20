@@ -1,5 +1,5 @@
 import DetailProduk from "../../views/DetailProduct";
-import { ProductType } from "../../types/Product.type";
+import { ProductType } from "@/types/Product.type";
 
 const HalamanProdukServer = ({ product }: { product: ProductType }) => {
   return (

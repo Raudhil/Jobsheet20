@@ -1,42 +1,39 @@
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  Firestore,
-  getDoc,
-  doc,
-  query,
   addDoc,
-  where,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
-import app from "./firebase";
 import bcrypt from "bcrypt";
+import app from "./firebase";
 
 const db = getFirestore(app);
 
 export async function retrieveProducts(collectionName: string) {
   const snapshot = await getDocs(collection(db, collectionName));
-  const data = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
+  return snapshot.docs.map((item) => ({
+    id: item.id,
+    ...item.data(),
   }));
-  return data;
 }
 
 export async function retrieveDataByID(collectionName: string, id: string) {
   const snapshot = await getDoc(doc(db, collectionName, id));
-  const data = snapshot.data();
-  return data;
+  return snapshot.data();
 }
 
 export async function signIn(email: string) {
   const normalizedEmail = email.trim().toLowerCase();
   const q = query(collection(db, "users"), where("email", "==", normalizedEmail));
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
+  const data = querySnapshot.docs.map((item) => ({
+    id: item.id,
+    ...item.data(),
   }));
 
   if (data.length > 0) {
@@ -53,17 +50,17 @@ export async function signUp(
     password: string;
     role?: string;
   },
-  callback: Function,
+  callback: Function
 ) {
   const normalizedEmail = userData.email.trim().toLowerCase();
   const q = query(
     collection(db, "users"),
-    where("email", "==", normalizedEmail),
+    where("email", "==", normalizedEmail)
   );
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
+  const data = querySnapshot.docs.map((item) => ({
+    id: item.id,
+    ...item.data(),
   }));
 
   if (data.length > 0) {
@@ -99,13 +96,13 @@ export async function signInWithGoogle(userData: any, callback: any) {
 
     const q = query(
       collection(db, "users"),
-      where("email", "==", normalizedEmail),
+      where("email", "==", normalizedEmail)
     );
 
     const querySnapshot = await getDocs(q);
-    const data: any = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
+    const data: any = querySnapshot.docs.map((item) => ({
+      id: item.id,
+      ...item.data(),
     }));
 
     if (data.length > 0) {

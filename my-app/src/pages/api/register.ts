@@ -1,4 +1,4 @@
-import { signUp } from '../utils/db/servicefirebase'
+import { signUp } from "@/utils/db/servicefirebase";
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {

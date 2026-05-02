@@ -1,6 +1,6 @@
 import styles from "../../produk/product.module.scss";
 import Link from "next/link";
-import { ProductType } from "../../types/Product.type";
+import { ProductType } from "@/types/Product.type";
 import Image from "next/image";
 
 type TampilanProdukProps = {

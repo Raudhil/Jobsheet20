@@ -1,6 +1,6 @@
 import type { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
-import { ProductType } from "../types/Product.type";
+import { ProductType } from "@/types/Product.type";
 
 // Dynamic import dengan loading fallback
 const DetailProduk = dynamic(() => import("../views/DetailProduct"), {

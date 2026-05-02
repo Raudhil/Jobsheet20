@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import {
   retrieveDataByID,
   retrieveProducts,
-} from "../utils/db/servicefirebase";
+} from "@/utils/db/servicefirebase";
 
 type Data = {
   status: boolean;

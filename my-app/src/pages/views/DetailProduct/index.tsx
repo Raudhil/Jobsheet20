@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ProductType } from "../../types/Product.type";
+import { ProductType } from "@/types/Product.type";
 import styles from "../DetailProduct/detailProduct.module.scss";
 
 const DetailProduk = ({ products }: { products: ProductType }) => {

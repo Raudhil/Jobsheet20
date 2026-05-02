@@ -1,6 +1,6 @@
 import TampilanProduk from '../views/products'
 import useSWR from 'swr'
-import fetcher from '../utils/swr/fetcher'
+import fetcher from '@/utils/swr/fetcher'
 
 const TampilanProdukPage = () => {
   const { data, error, isLoading } = useSWR('/api/produk', fetcher)
