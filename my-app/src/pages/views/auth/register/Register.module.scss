@@ -1,4 +1,5 @@
 // register.module.scss
+@use "sass:color";
 
 // Gunakan variabel agar ganti warna gampang
 $primary-color: #3b82f6; // Biru modern
@@ -138,7 +139,7 @@ $border-color: #e2e8f0; // Slate-200
 
       // Hover Effect
       &:hover {
-        background: darken($primary-color, 8%); // Biru lebih gelap saat hover
+        background: color.adjust($primary-color, $lightness: -8%); // Biru lebih gelap saat hover
         box-shadow: 0 10px 24px rgba(59, 130, 246, 0.4);
         transform: translateY(-2px);
       }
@@ -178,7 +179,7 @@ $border-color: #e2e8f0; // Slate-200
         }
 
         &:hover {
-          color: darken($primary-color, 10%);
+          color: color.adjust($primary-color, $lightness: -10%);
           &:after {
             width: 100%;
           }
